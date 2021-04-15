@@ -40,4 +40,76 @@ nav li{
     color: #1F7FB3;
 }
 
+/* LOGIN AND REGISTER MODAL */
+
+.modal-login {
+    width: 450px;
+}
+.modal-login .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+}
+.modal-login .modal-header {
+    border-bottom: none;
+    position: relative;
+    justify-content: center;
+}
+.modal-title {
+    text-align: center;
+    font-size: 26px;
+    color: #2C405C   !important;
+}
+.modal-login  .form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+.modal-login i {
+    position: absolute;
+    left: 13px;
+    top: 11px;
+    font-size: 18px;
+    color: #2C405C;
+}
+.modal-login .form-control {
+    padding-left: 40px;
+}
+.modal-login .form-control:focus {
+    border-color: #2C405C;
+}
+.modal-login .form-control, .modal-login .btn {
+    min-height: 40px;
+    border-radius: 3px; 
+}
+.modal-login .hint-text {
+    text-align: center;
+    padding-top: 10px;
+}
+.modal-login .close {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+.modal-login .btn, .modal-login .btn:active {	
+    border: none;
+    background: #2C405C !important;
+    line-height: normal;
+    color:#F3F7F9 ;
+}
+.modal-login .btn:hover, .modal-login .btn:focus {
+    background: #3AAFEB  !important;
+    color:#2C405C ;
+}
+
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
+
+.modal-login .modal-content{
+    background: #F3F7F9 ;
+    border-color: #2C405C;
+}
+
+/* END LOGIN AND REGISTER MODAL */
 
