@@ -1,5 +1,6 @@
 import home from './home'
 import authModal from './AuthenticationModals';
+import eonet from './eonet';
 $(document).ready(function(){
 
     
@@ -30,6 +31,7 @@ $('.link').on('click', (e) => {
     switch (link) {
         case "eonet":
             console.log('EONET');
+            eonet();
             break;
 
         case "news":

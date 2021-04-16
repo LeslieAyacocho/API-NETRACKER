@@ -113,3 +113,53 @@ nav li{
 
 /* END LOGIN AND REGISTER MODAL */
 
+.page-title{
+    text-align: center;
+    margin: 40px;
+    color:#2C405C;
+}
+
+/* -----------EONET CARDS---------------- */
+.card-title{
+    text-align: center;
+    height: 50px;
+    padding: 10px;
+}
+.card-title a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:800;
+    color:#f3f7f9 ;
+    text-decoration: none;
+    text-align: center;
+    font-size:1.6vw;
+}
+.card-body{
+    padding: 30px;
+    font-size: 1.2vw;
+}
+.card-body p{
+    color: #cedbe2;
+    margin: 0;
+}
+.card-body label{
+    color: #3aafeb;
+}
+.card {
+    background-color: #2c405c;
+    float: left;
+    width:410px;
+    height:300px;
+    margin:10px;
+    
+}
+/* -----------END EONET CARDS---------------- */
+#bookmark{
+    float: right;
+    font-size: 30px;
+}
+i{
+    color: #f3f7f9;
+}
+span i:hover{
+    color:#3aafeb;
+}

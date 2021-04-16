@@ -18,6 +18,35 @@ function authModal() {
 
 /***/ }),
 
+/***/ "./resources/js/eonet.js":
+/*!*******************************!*\
+  !*** ./resources/js/eonet.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ eonet)
+/* harmony export */ });
+function eonet() {
+  console.log('WORKING');
+  var newsContent = "\n    <div class=\"page-title\">\n        <h1> Earth Observatory Natural Event Tracker</h1>\n        <h2>(EONET)</h2>\n    </div>\n    <div class=\"eonet-card-container\" id=\"card-append\">\n        \n    </div>\n    ";
+  $('#contentpage').html(newsContent);
+  $.ajax({
+    type: 'GET',
+    url: 'https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit=10&' + 'api_key=qnGioQlQwdiwOCY2qSRM3mJOtAQMElCLjegvqc3r',
+    success: function success(response) {
+      var data = response.events;
+      console.log(data);
+      data.forEach(function (element) {
+        $('#card-append').append("\n                <div class=\"card col\"  style=\"\">\n                    <div class=\"card-title\">\n                    <a href=\"".concat(element.sources[0].url, "\" target=\"_blank\">").concat(element.title, "</a>\n                    </div>\n                    <div class=\"card-body\">\n                        <p><label>Category:</label> ").concat(element.categories[0].title, "</p>\n                        <p><label>Date:</label> ").concat(element.geometry[0].date, "</p>\n                        <p><label>Coordinates:</label> ").concat(element.geometry[0].coordinates[0], " , ").concat(element.geometry[0].coordinates[1], "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.sources[0].url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">MORE INFO</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark bookmarknews\" id=\"bookmarknews\" data-id=\"").concat(element.id, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                "));
+      });
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/home.js":
 /*!******************************!*\
   !*** ./resources/js/home.js ***!
@@ -100,6 +129,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home */ "./resources/js/home.js");
 /* harmony import */ var _AuthenticationModals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthenticationModals */ "./resources/js/AuthenticationModals.js");
+/* harmony import */ var _eonet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./eonet */ "./resources/js/eonet.js");
+
 
 
 $(document).ready(function () {
@@ -126,6 +157,7 @@ $(document).ready(function () {
     switch (link) {
       case "eonet":
         console.log('EONET');
+        (0,_eonet__WEBPACK_IMPORTED_MODULE_2__.default)();
         break;
 
       case "news":
