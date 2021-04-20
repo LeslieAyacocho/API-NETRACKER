@@ -18,6 +18,13 @@ nav li{
     margin: 0 10px 0 10px;
 }
 
+.nodata{
+    text-align: center;
+}
+.nodata h1{
+    font-size: 1.5vw;
+    color: #2c405c;
+}
 .container-name{
     margin-top: 70px;
     text-align: center;
@@ -120,12 +127,12 @@ nav li{
 }
 
 /* -----------EONET CARDS---------------- */
-.card-title{
+#eonet-list .card-title{
     text-align: center;
     height: 50px;
     padding: 10px;
 }
-.card-title a{
+#eonet-list .card-title a{
     font-family: 'Exo 2', sans-serif;
     font-weight:800;
     color:#f3f7f9 ;
@@ -133,18 +140,18 @@ nav li{
     text-align: center;
     font-size:1.6vw;
 }
-.card-body{
+#eonet-list .card-body{
     padding: 30px;
     font-size: 1.2vw;
 }
-.card-body p{
+#eonet-list .card-body p{
     color: #cedbe2;
     margin: 0;
 }
-.card-body label{
+#eonet-list .card-body label{
     color: #3aafeb;
 }
-.card {
+#eonet-list .card {
     background-color: #2c405c;
     float: left;
     width:410px;
@@ -153,6 +160,43 @@ nav li{
     
 }
 /* -----------END EONET CARDS---------------- */
+
+/* -----------NEWS CARDS---------------- */
+
+#news-list .card-img-top {
+    object-fit: cover;
+    width:400px;
+    height:200px;
+} 
+#news-list .card-text {
+    color: #3aafeb;
+}
+#news-list .card {
+    background-color: #2c405c;
+    float: left;
+    width:400px;
+    height:500px;
+    margin:10px;
+} 
+
+#news-list .card-title{
+    text-align: left;
+}
+#news-list .card-title a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:800;
+    color:#f3f7f9;
+    text-decoration: none;
+    text-align: center;
+    font-size:1.6vw;
+}
+
+#category-drop{
+    margin: 30px;
+}
+
+/* -----------END NEWS CARDS---------------- */
+
 #bookmark{
     float: right;
     font-size: 30px;
