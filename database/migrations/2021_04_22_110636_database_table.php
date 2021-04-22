@@ -13,23 +13,23 @@ class DatabaseTable extends Migration
      */
     public function up()
     {
-        Schema::create('eonet', function (Blueprint $table) {
+        Schema::create('eonets', function (Blueprint $table) {
             
             $table->bigIncrements('id');
-            $table->integer('eonet');
+            $table->string('eonetid');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         Schema::create('news', function (Blueprint $table) {
             
             $table->bigIncrements('id');
-            $table->integer('news');
+            $table->string('newsid');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-        Schema::create('globalgiving', function (Blueprint $table) {
+        Schema::create('globalgivings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('globalgiving');
+            $table->integer('globalgivingid');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

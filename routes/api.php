@@ -5,6 +5,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\EonetController;
+use App\Http\Controllers\NewsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,5 +31,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
+    Route::resource('Eonet', EonetController::class); 
+    Route::resource('News', NewsController::class); 
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 });

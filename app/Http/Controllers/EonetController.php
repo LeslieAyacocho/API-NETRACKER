@@ -17,6 +17,13 @@ class EonetController extends Controller
         //
     }
 
+    public function getEonet($id)
+    {
+        $eonet = eonet::orderBy('id')
+        ->where('user_id', '=', $id)
+        ->get();
+        return response()->json($eonet);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +42,8 @@ class EonetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $eonet = Eonet::create($request->all());
+        return response()->json($eonet);
     }
 
     /**

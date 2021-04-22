@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ eonet)
 /* harmony export */ });
 function eonet() {
-  console.log('WORKING');
+  // console.log('WORKING');
   var newsContent = "\n    <div class=\"page-title\">\n        <h1> Earth Observatory Natural Event Tracker</h1>\n        <h2>(EONET)</h2>\n    </div>\n\n    <div class=\"dropdown\" id=\"category-drop\">\n    <button style=\"background-color:#3aafeb; color:#f3f7f9\" class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton1\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n        CATEGORY\n    </button>\n    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\" id=\"news-list-category\">\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"drought\">Drought</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"earthquakes\">Earthquakes</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"floods\">Floods</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"landslides\">Landslides</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"severeStorms\">Severe Storms</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"snow\">Snow</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"volcanoes\">Volcanoes</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"wildfires\">Wildfires</a></li>\n    </ul>\n    </div>\n    <div class=\"eonet-card-container\" id=\"eonet-list\">\n        \n    </div>\n    ";
   $('#contentpage').html(newsContent);
   $.ajax({
@@ -39,7 +39,29 @@ function eonet() {
       var data = response.events; // console.log(data);
 
       data.forEach(function (element) {
-        $('#eonet-list').append("\n                <div class=\"card col\"  style=\"\">\n                    <div class=\"card-title\">\n                    <a href=\"".concat(element.sources[0].url, "\" target=\"_blank\">").concat(element.title, "</a>\n                    </div>\n                    <div class=\"card-body\">\n                        <p><label>Category:</label> ").concat(element.categories[0].title, "</p>\n                        <p><label>Date:</label> ").concat(element.geometry[0].date, "</p>\n                        <p><label>Coordinates:</label> ").concat(element.geometry[0].coordinates[0], " , ").concat(element.geometry[0].coordinates[1], "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.sources[0].url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">MORE INFO</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark bookmarknews\" id=\"bookmarknews\" data-id=\"").concat(element.id, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                "));
+        $('#eonet-list').append("\n                <div class=\"card col\"  style=\"\">\n                    <div class=\"card-title\">\n                    <a href=\"".concat(element.sources[0].url, "\" target=\"_blank\">").concat(element.title, "</a>\n                    </div>\n                    <div class=\"card-body\">\n                        <p><label>Category:</label> ").concat(element.categories[0].title, "</p>\n                        <p><label>Date:</label> ").concat(element.geometry[0].date, "</p>\n                        <p><label>Coordinates:</label> ").concat(element.geometry[0].coordinates[0], " , ").concat(element.geometry[0].coordinates[1], "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.sources[0].url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">MORE INFO</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark follow-eonet\" id=\"follow-eonet\" data-id=\"").concat(element.id, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                "));
+      });
+      $('.follow-eonet').on('click', function (e) {
+        var eonetid = $(e.currentTarget).attr('data-id');
+        var userid = localStorage.getItem('user_id');
+        var datainput = "\n                    <form action=\"\" id=\"addEonet\">\n                    <input type=\"text\" id=\"eonetid\" name=\"eonetid\" value=\"".concat(eonetid, "\">\n                    <input type=\"text\" id=\"user_id\" name=\"user_id\" value=\"").concat(userid, "\">\n                    </form>\n                    ");
+        var data = $(datainput).serialize();
+        console.log(data);
+        $.ajax({
+          type: "Post",
+          url: "/api/Eonet",
+          data: data,
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+          },
+          dataType: "json",
+          success: function success(data) {
+            e.preventDefault();
+          },
+          error: function error(_error) {
+            alert('Login first to bookmark news');
+          }
+        });
       });
     }
   });
@@ -62,12 +84,34 @@ function eonet() {
 
         if (matched_data.length > 0) {
           for (var i = 0; i < matched_data.length; i++) {
-            $('#eonet-list').append("\n                    <div class=\"card col\"  style=\"\">\n                    <div class=\"card-title\">\n                    <a href=\"".concat(matched_data[i].sources[0].url, "\" target=\"_blank\">").concat(matched_data[i].title, "</a>\n                    </div>\n                    <div class=\"card-body\">\n                        <p><label>Category:</label> ").concat(matched_data[i].categories[0].title, "</p>\n                        <p><label>Date:</label> ").concat(matched_data[i].geometry[0].date, "</p>\n                        <p><label>Coordinates:</label> ").concat(matched_data[i].geometry[0].coordinates[0], " , ").concat(matched_data[i].geometry[0].coordinates[1], "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(matched_data[i].sources[0].url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">MORE INFO</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark bookmarknews\" id=\"bookmarknews\" data-id=\"").concat(matched_data[i].id, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                "));
+            $('#eonet-list').append("\n                        <div class=\"card col\"  style=\"\">\n                        <div class=\"card-title\">\n                        <a href=\"".concat(matched_data[i].sources[0].url, "\" target=\"_blank\">").concat(matched_data[i].title, "</a>\n                        </div>\n                        <div class=\"card-body\">\n                            <p><label>Category:</label> ").concat(matched_data[i].categories[0].title, "</p>\n                            <p><label>Date:</label> ").concat(matched_data[i].geometry[0].date, "</p>\n                            <p><label>Coordinates:</label> ").concat(matched_data[i].geometry[0].coordinates[0], " , ").concat(matched_data[i].geometry[0].coordinates[1], "</p>\n                        </div>\n                        <div class=\"card-footer\">\n                        <a href=\"").concat(matched_data[i].sources[0].url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">MORE INFO</button></a>\n                        <span id=\"bookmark\"><i class=\"fas fa-bookmark follow-eonet2\" id=\"follow-eonet2\" data-id=\"").concat(matched_data[i].id, "\" tabindex=\"0\"></i></span>\n                        </div>\n                    </div>\n                    "));
           }
         } else {
-          $('#eonet-list').append("\n                <div class=\"col-sm nodata\"  style=\"width: 720px;\">\n                    \n                    <h1>NO DATA</h1>\n                \n                </div>\n            \n                ");
+          $('#eonet-list').append("\n                    <div class=\"col-sm nodata\"  style=\"width: 720px;\">\n                        \n                        <h1>NO DATA</h1>\n                    \n                    </div>\n                \n                    ");
         }
       }
+    });
+    $('.follow-eonet2').on('click', function (e) {
+      var eonetid = $(e.currentTarget).attr('data-id');
+      var userid = localStorage.getItem('user_id');
+      var datainput = "\n                <form action=\"\" id=\"addEonet\">\n                <input type=\"text\" id=\"eonetid\" name=\"eonetid\" value=\"".concat(eonetid, "\">\n                <input type=\"text\" id=\"user_id\" name=\"user_id\" value=\"").concat(userid, "\">\n                </form>\n                ");
+      var data = $(datainput).serialize();
+      console.log(data);
+      $.ajax({
+        type: "Post",
+        url: "/api/Eonet",
+        data: data,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
+        dataType: "json",
+        success: function success(data) {
+          e.preventDefault();
+        },
+        error: function error(_error2) {
+          alert('Login first to bookmark news');
+        }
+      });
     });
   });
 }
@@ -118,7 +162,29 @@ function news() {
           var string = element.description;
           var length = 150;
           var bodytrimmed = string.substring(0, length);
-          $('#news-list').append("\n                    <div class=\"card col\"  style=\"\">\n                    <img src=\"".concat(element.urlToImage, "\" class=\"card-img-top\" alt=\"...\"> \n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\"><a href=\"#\" target=\"_blank\">").concat(element.title, "</a></h5>\n                        <p class=\"card-text\">").concat(bodytrimmed, "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">READ MORE</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark bookmarknews\" id=\"bookmarknews\" data-id=\"").concat(element.id, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                    "));
+          $('#news-list').append("\n                    <div class=\"card col\"  style=\"\">\n                    <img src=\"".concat(element.urlToImage, "\" class=\"card-img-top\" alt=\"...\"> \n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\"><a href=\"#\" target=\"_blank\">").concat(element.title, "</a></h5>\n                        <p class=\"card-text\">").concat(bodytrimmed, "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">READ MORE</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark bookmarknews\" id=\"bookmarknews\" data-id=\"").concat(element.url, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                    "));
+        });
+        $('.bookmarknews').on('click', function (e) {
+          var newsid = $(e.currentTarget).attr('data-id');
+          var userid = localStorage.getItem('user_id');
+          var datainput = "\n                        <form action=\"\" id=\"bookmarkNews\">\n                        <input type=\"text\" id=\"newsid\" name=\"newsid\" value=\"".concat(newsid, "\">\n                        <input type=\"text\" id=\"user_id\" name=\"user_id\" value=\"").concat(userid, "\">\n                        </form>\n                        ");
+          var data = $(datainput).serialize();
+          console.log(newsid);
+          $.ajax({
+            type: "Post",
+            url: "/api/News",
+            data: data,
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            },
+            dataType: "json",
+            success: function success(data) {
+              e.preventDefault();
+            },
+            error: function error(_error) {
+              alert('Login first to bookmark news');
+            }
+          });
         });
       }
     });

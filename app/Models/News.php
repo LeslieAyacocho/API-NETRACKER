@@ -10,7 +10,7 @@ class News extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = [ 'news', 'user_id'];
+    protected $fillable = [ 'newsid', 'user_id'];
 
     public function user()
     {

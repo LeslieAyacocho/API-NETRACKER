@@ -56,14 +56,53 @@ $('.dropdown-item').on('click', (e) => {
                     </div>
                     <div class="card-footer">
                     <a href="${element.url}" target="_blank"><button type="button" class="btn" style="background-color:#3aafeb; color:#f3f7f9">READ MORE</button></a>
-                    <span id="bookmark"><i class="fas fa-bookmark bookmarknews" id="bookmarknews" data-id="${element.id}" tabindex="0"></i></span>
+                    <span id="bookmark"><i class="fas fa-bookmark bookmarknews" id="bookmarknews" data-id="${element.url}" tabindex="0"></i></span>
                     </div>
                 </div>
                     `)
                 });
+
+
+                $('.bookmarknews').on('click', (e) => {
+                
+                    var newsid = $(e.currentTarget).attr('data-id');
+            
+                    var userid = localStorage.getItem('user_id');
+            
+                        let datainput= `
+                        <form action="" id="bookmarkNews">
+                        <input type="text" id="newsid" name="newsid" value="${newsid}">
+                        <input type="text" id="user_id" name="user_id" value="${userid}">
+                        </form>
+                        `;
+            
+                        var data = $(datainput).serialize();
+                        console.log(newsid);
+            
+                        $.ajax({
+                            
+                            type: "Post",
+                            url: "/api/News",
+                            data: data,
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                e.preventDefault();
+                    
+                            },
+                            error: function(error) {
+                                alert('Login first to bookmark news')
+                            }
+                        });
+            
+                });
             }
         });
     
+
+        
         
 });
 

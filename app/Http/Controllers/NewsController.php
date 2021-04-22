@@ -17,6 +17,14 @@ class NewsController extends Controller
         //
     }
 
+    public function getNews($id)
+    {
+        $news = News::orderBy('id')
+        ->where('user_id', '=', $id)
+        ->get();
+        return response()->json($news);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +43,8 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $news = News::create($request->all());
+        return response()->json($news);
     }
 
     /**

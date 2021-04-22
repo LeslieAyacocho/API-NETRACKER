@@ -10,7 +10,7 @@ class Eonet extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = [ 'eonet', 'user_id'];
+    protected $fillable = ['eonetid', 'user_id'];
 
     public function user()
     {

@@ -1,6 +1,6 @@
 export default function eonet(){
 
-    console.log('WORKING');
+    // console.log('WORKING');
 
     let newsContent=`
     <div class="page-title">
@@ -51,77 +51,150 @@ export default function eonet(){
                     </div>
                     <div class="card-footer">
                     <a href="${element.sources[0].url}" target="_blank"><button type="button" class="btn" style="background-color:#3aafeb; color:#f3f7f9">MORE INFO</button></a>
-                    <span id="bookmark"><i class="fas fa-bookmark bookmarknews" id="bookmarknews" data-id="${element.id}" tabindex="0"></i></span>
+                    <span id="bookmark"><i class="fas fa-bookmark follow-eonet" id="follow-eonet" data-id="${element.id}" tabindex="0"></i></span>
                     </div>
                 </div>
                 `)
 			});
-        }
-    });
 
 
-    
-$('.dropdown-item').on('click', (e) => {
-    let category = e.currentTarget.dataset.id;
-
-        $.ajax({
-        type: 'GET',
-        url: 'https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit&'+
-        'api_key=qnGioQlQwdiwOCY2qSRM3mJOtAQMElCLjegvqc3r',
-        success: function (response) {
-
-            let data = response.events;
-            let x = 0;
-            var matched_data = new Array();
-
-
-            $('#eonet-list').html('');
-            data.forEach(element => {
-                if(category == element.categories[0].id){
-                    matched_data[x] = element;
-                    x++;
-                }
-            });
-
-            if(matched_data.length>0){
-                for(let i=0; i< matched_data.length; i++){
-
-                    $('#eonet-list').append(`
-                    <div class="card col"  style="">
-                    <div class="card-title">
-                    <a href="${matched_data[i].sources[0].url}" target="_blank">${matched_data[i].title}</a>
-                    </div>
-                    <div class="card-body">
-                        <p><label>Category:</label> ${matched_data[i].categories[0].title}</p>
-                        <p><label>Date:</label> ${matched_data[i].geometry[0].date}</p>
-                        <p><label>Coordinates:</label> ${matched_data[i].geometry[0].coordinates[0]} , ${matched_data[i].geometry[0].coordinates[1]}</p>
-                    </div>
-                    <div class="card-footer">
-                    <a href="${matched_data[i].sources[0].url}" target="_blank"><button type="button" class="btn" style="background-color:#3aafeb; color:#f3f7f9">MORE INFO</button></a>
-                    <span id="bookmark"><i class="fas fa-bookmark bookmarknews" id="bookmarknews" data-id="${matched_data[i].id}" tabindex="0"></i></span>
-                    </div>
-                </div>
-                `)
-    
-                }
-            }else{
-                $('#eonet-list').append(`
-                <div class="col-sm nodata"  style="width: 720px;">
-                    
-                    <h1>NO DATA</h1>
+            $('.follow-eonet').on('click', (e) => {
                 
-                </div>
-            
-                `)
-            }
-            
-            
-
-
+                var eonetid = $(e.currentTarget).attr('data-id');
+        
+                var userid = localStorage.getItem('user_id');
+        
+                    let datainput= `
+                    <form action="" id="addEonet">
+                    <input type="text" id="eonetid" name="eonetid" value="${eonetid}">
+                    <input type="text" id="user_id" name="user_id" value="${userid}">
+                    </form>
+                    `;
+        
+                    var data = $(datainput).serialize();
+                    console.log(data);
+        
+                    $.ajax({
+                        
+                        type: "Post",
+                        url: "/api/Eonet",
+                        data: data,
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            e.preventDefault();
+                
+                        },
+                        error: function(error) {
+                            alert('Login first to bookmark news')
+                        }
+                    });
+        
+            });
         }
     });
+
+
         
-});
+    $('.dropdown-item').on('click', (e) => {
+        let category = e.currentTarget.dataset.id;
+
+            $.ajax({
+            type: 'GET',
+            url: 'https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit&'+
+            'api_key=qnGioQlQwdiwOCY2qSRM3mJOtAQMElCLjegvqc3r',
+            success: function (response) {
+
+                let data = response.events;
+                let x = 0;
+                var matched_data = new Array();
+
+
+                $('#eonet-list').html('');
+                data.forEach(element => {
+                    if(category == element.categories[0].id){
+                        matched_data[x] = element;
+                        x++;
+                    }
+                });
+
+                if(matched_data.length>0){
+                    for(let i=0; i< matched_data.length; i++){
+
+                        $('#eonet-list').append(`
+                        <div class="card col"  style="">
+                        <div class="card-title">
+                        <a href="${matched_data[i].sources[0].url}" target="_blank">${matched_data[i].title}</a>
+                        </div>
+                        <div class="card-body">
+                            <p><label>Category:</label> ${matched_data[i].categories[0].title}</p>
+                            <p><label>Date:</label> ${matched_data[i].geometry[0].date}</p>
+                            <p><label>Coordinates:</label> ${matched_data[i].geometry[0].coordinates[0]} , ${matched_data[i].geometry[0].coordinates[1]}</p>
+                        </div>
+                        <div class="card-footer">
+                        <a href="${matched_data[i].sources[0].url}" target="_blank"><button type="button" class="btn" style="background-color:#3aafeb; color:#f3f7f9">MORE INFO</button></a>
+                        <span id="bookmark"><i class="fas fa-bookmark follow-eonet2" id="follow-eonet2" data-id="${matched_data[i].id}" tabindex="0"></i></span>
+                        </div>
+                    </div>
+                    `)
+        
+                    }
+                }else{
+                    $('#eonet-list').append(`
+                    <div class="col-sm nodata"  style="width: 720px;">
+                        
+                        <h1>NO DATA</h1>
+                    
+                    </div>
+                
+                    `)
+                }
+            }
+
+            
+            
+        });
+
+        $('.follow-eonet2').on('click', (e) => {
+                
+            var eonetid = $(e.currentTarget).attr('data-id');
+    
+            var userid = localStorage.getItem('user_id');
+    
+                let datainput= `
+                <form action="" id="addEonet">
+                <input type="text" id="eonetid" name="eonetid" value="${eonetid}">
+                <input type="text" id="user_id" name="user_id" value="${userid}">
+                </form>
+                `;
+    
+                var data = $(datainput).serialize();
+                console.log(data);
+    
+                $.ajax({
+                    
+                    type: "Post",
+                    url: "/api/Eonet",
+                    data: data,
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        e.preventDefault();
+            
+                    },
+                    error: function(error) {
+                        alert('Login first to bookmark news')
+                    }
+                });
+    
+        });
+    });
+
+    
 
 
 }
