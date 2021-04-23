@@ -17,6 +17,14 @@ class GlobalGivingController extends Controller
         //
     }
 
+    public function getGlobalGiving($id)
+    {
+        $globalgiving = GlobalGiving::orderBy('id')
+        ->where('user_id', '=', $id)
+        ->get();
+        return response()->json($globalgiving);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +43,8 @@ class GlobalGivingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $globalgiving = GlobalGiving::create($request->all());
+        return response()->json($globalgiving);
     }
 
     /**

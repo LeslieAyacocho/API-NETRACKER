@@ -1,7 +1,6 @@
-export default function news(){
-    console.log('working');
+export default function getEonet(response){
 
-    let pageContent=`
+    let newsContent=`
     <div class="page-title">
         <h1>NEWS</h1>
     </div>
@@ -20,15 +19,22 @@ export default function news(){
         <li><a class="dropdown-item" href="#" onclick="return false;" target="_blank" data-id="wildfires">Wildfires</a></li>
     </ul>
     </div>
-
-    
     <div id="news-list">
+    <h1>CHOOSE CATEGORY</h1>
     </div>
-    `;
+    `
 
-    $('#contentpage').html(pageContent);
+    $('#content-account').html(newsContent);
 
-    
+    var i = 0;
+    var all_result = new Array();
+    response.forEach(data => {            
+        all_result[i] = data;
+        i++;
+    });
+
+    console.log(all_result);
+
 $('.dropdown-item').on('click', (e) => {
     let id = e.currentTarget.dataset.id;
 
@@ -38,16 +44,17 @@ $('.dropdown-item').on('click', (e) => {
             success: function (response) {
                 let data = response.articles
                     console.log(data);
-                    $('#news-list').html('');
+                    $('#news-list').html('NO DATA');
 
-                    data.forEach(element => {
-
+                    for(let r=0; r<all_result.length; r++){
+                        data.forEach(element => {
+                            if (all_result[r].newsid== element.url){
                     
                         var string = element.description;
                         var length =150;
                         var bodytrimmed = string.substring(0, length);
                     
-                    
+                        $('#news-list').html('');
                     $('#news-list').append(`
                     <div class="card col"  style="">
                     <img src="${element.urlToImage}" class="card-img-top" alt="..."> 
@@ -58,57 +65,16 @@ $('.dropdown-item').on('click', (e) => {
                     </div>
                     <div class="card-footer">
                     <a href="${element.url}" target="_blank"><button type="button" class="btn" style="background-color:#3aafeb; color:#f3f7f9">READ MORE</button></a>
-                    <span id="bookmark"><i class="fas fa-bookmark bookmarknews" id="bookmarknews" data-id="${element.url}" tabindex="0"></i></span>
+                    <span id="bookmark"><i class="fas fa-trash bookmarknews" id="bookmarknews" style="color: #c05f5f;" data-id="${element.url}" tabindex="0"></i></span>
                     </div>
                 </div>
                     `)
-                });
-
-
-                $('.bookmarknews').on('click', (e) => {
-                
-                    var newsid = $(e.currentTarget).attr('data-id');
-            
-                    var userid = localStorage.getItem('user_id');
-            
-                        let datainput= `
-                        <form action="" id="bookmarkNews">
-                        <input type="text" id="newsid" name="newsid" value="${newsid}">
-                        <input type="text" id="user_id" name="user_id" value="${userid}">
-                        </form>
-                        `;
-            
-                        var data = $(datainput).serialize();
-                        console.log(newsid);
-            
-                        $.ajax({
-                            
-                            type: "Post",
-                            url: "/api/News",
-                            data: data,
-                            headers: {
-                                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                            },
-                            dataType: "json",
-                            success: function(data) {
-                                e.preventDefault();
-                                console.log('success');
-                    
-                            },
-                            error: function(error) {
-                                alert('Login first to bookmark news')
                             }
-                        });
-            
                 });
             }
+            }
         });
-    
 
-        
-        
-});
+    });
 
-    
-    
 }

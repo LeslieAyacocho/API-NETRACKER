@@ -18,6 +18,216 @@ function authModal() {
 
 /***/ }),
 
+/***/ "./resources/js/account/getEonet.js":
+/*!******************************************!*\
+  !*** ./resources/js/account/getEonet.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getEonet)
+/* harmony export */ });
+function getEonet(response) {
+  console.log('EONET');
+  var newsContent = "\n    <div class=\"page-title\">\n        <h1> Earth Observatory Natural Event Tracker</h1>\n        <h2>(EONET)</h2>\n    </div>\n    <div id=\"eonet-list\">\n        \n    </div>\n    ";
+  $('#content-account').html(newsContent);
+  var i = 0;
+  var all_result = new Array();
+  response.forEach(function (data) {
+    all_result[i] = data;
+    i++;
+  });
+  console.log(all_result[0].eonetid);
+  $.ajax({
+    type: 'GET',
+    url: 'https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit&' + 'api_key=qnGioQlQwdiwOCY2qSRM3mJOtAQMElCLjegvqc3r',
+    success: function success(response) {
+      var data = response.events;
+
+      var _loop = function _loop(r) {
+        data.forEach(function (element) {
+          if (all_result[r].eonetid == element.id) {
+            console.log(r);
+            $('#eonet-list').append("\n                            <div class=\"card col\"  style=\"\">\n                                <div class=\"card-title\">\n                                <a href=\"".concat(element.sources[0].url, "\" target=\"_blank\">").concat(element.title, "</a>\n                                </div>\n                                <div class=\"card-body\">\n                                    <p><label>Category:</label> ").concat(element.categories[0].title, "</p>\n                                    <p><label>Date:</label> ").concat(element.geometry[0].date, "</p>\n                                    <p><label>Coordinates:</label> ").concat(element.geometry[0].coordinates[0], " , ").concat(element.geometry[0].coordinates[1], "</p>\n                                </div>\n                                <div class=\"card-footer\">\n                                <a href=\"").concat(element.sources[0].url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">MORE INFO</button></a>\n                                <span id=\"bookmark\"><i class=\"fas fa-trash follow-eonet\" id=\"follow-eonet\" style=\"color: #c05f5f;\" data-id=\"").concat(element.id, "\" tabindex=\"0\"></i></span>\n                                </div>\n                            </div>\n                            "));
+          }
+        });
+      };
+
+      for (var r = 0; r < all_result.length; r++) {
+        _loop(r);
+      }
+    },
+    error: function error(_error) {
+      console.log('error');
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/account/getGlobalGiving.js":
+/*!*************************************************!*\
+  !*** ./resources/js/account/getGlobalGiving.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getGlobalGiving)
+/* harmony export */ });
+function getGlobalGiving(response) {
+  var newsContent = "\n    <div class=\"page-title\">\n        <h1>GLOBAL GIVING</h1>\n    </div>\n    <div id=\"globalgiving-list\">\n        \n    </div>\n    ";
+  $('#content-account').html(newsContent);
+  var i = 0;
+  var all_result = new Array();
+  response.forEach(function (data) {
+    all_result[i] = data;
+    i++;
+  }); // console.log(all_result[0].globalgivingid);
+
+  $.ajax({
+    type: 'GET',
+    url: 'https://api.globalgiving.org/api/public/projectservice/themes/disaster/projects?api_key=0497935c-d3a3-456a-a526-7da636c07c85',
+    accepts: {
+      'accept': 'application/json'
+    },
+    dataType: 'json',
+    success: function success(response) {
+      var data = response.projects.project;
+
+      var _loop = function _loop(r) {
+        data.forEach(function (element) {
+          if (all_result[r].globalgivingid == element.id) {
+            var string = element.summary;
+            var length = 150;
+            var bodytrimmed = string.substring(0, length);
+            $('#globalgiving-list').append("\n                        <div class=\"card col\"  style=\"\">\n                        <img src=\"".concat(element.imageLink, "\" class=\"card-img-top\" alt=\"...\"> \n                        <div class=\"card-body\">\n                            <h5 class=\"card-title\"><a href=\"#\" target=\"_blank\">").concat(element.title, "</a></h5>\n                            <h6 class=\"card-title2\"><a href=\"").concat(element.contactUrl, "\" target=\"_blank\">by ").concat(element.contactAddress, "</a></h6>\n                            <p class=\"card-text\">").concat(bodytrimmed, "</p>\n                        </div>\n                        <div class=\"card-footer\">\n                        <a href=\"").concat(element.projectLink, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">READ MORE</button></a>\n                        <span id=\"bookmark\"><i class=\"fas fa-trash follow-global\" id=\"follow-global\" style=\"color: #c05f5f;\" data-id=\"").concat(element.id, "\" tabindex=\"0\"></i></span>\n                        </div>\n                        </div>\n                        "));
+          }
+        });
+      };
+
+      for (var r = 0; r < all_result.length; r++) {
+        _loop(r);
+      }
+    },
+    error: function error(_error) {
+      console.log('error');
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/account/getNews.js":
+/*!*****************************************!*\
+  !*** ./resources/js/account/getNews.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getEonet)
+/* harmony export */ });
+function getEonet(response) {
+  var newsContent = "\n    <div class=\"page-title\">\n        <h1>NEWS</h1>\n    </div>\n    <div class=\"dropdown\" id=\"category-drop\">\n    <button style=\"background-color:#3aafeb; color:#f3f7f9\" class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton1\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n        CATEGORY\n    </button>\n    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\" id=\"news-list-category\">\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"drought\">Drought</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"earthquakes\">Earthquakes</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"floods\">Floods</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"landslides\">Landslides</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"storms\">Severe Storms</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"snowstorm\">Snow</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"volcanoes\">Volcanoes</a></li>\n        <li><a class=\"dropdown-item\" href=\"#\" onclick=\"return false;\" target=\"_blank\" data-id=\"wildfires\">Wildfires</a></li>\n    </ul>\n    </div>\n    <div id=\"news-list\">\n    <h1>CHOOSE CATEGORY</h1>\n    </div>\n    ";
+  $('#content-account').html(newsContent);
+  var i = 0;
+  var all_result = new Array();
+  response.forEach(function (data) {
+    all_result[i] = data;
+    i++;
+  });
+  console.log(all_result);
+  $('.dropdown-item').on('click', function (e) {
+    var id = e.currentTarget.dataset.id;
+    $.ajax({
+      type: 'GET',
+      url: 'api/news/' + id,
+      success: function success(response) {
+        var data = response.articles;
+        console.log(data);
+        $('#news-list').html('NO DATA');
+
+        var _loop = function _loop(r) {
+          data.forEach(function (element) {
+            if (all_result[r].newsid == element.url) {
+              var string = element.description;
+              var length = 150;
+              var bodytrimmed = string.substring(0, length);
+              $('#news-list').html('');
+              $('#news-list').append("\n                    <div class=\"card col\"  style=\"\">\n                    <img src=\"".concat(element.urlToImage, "\" class=\"card-img-top\" alt=\"...\"> \n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\"><a href=\"#\" target=\"_blank\">").concat(element.title, "</a></h5>\n                        <h6 class=\"card-title2\"><a href=\"#\" target=\"_blank\">by ").concat(element.author, "</a></h6>\n                        <p class=\"card-text\">").concat(bodytrimmed, "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">READ MORE</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-trash bookmarknews\" id=\"bookmarknews\" style=\"color: #c05f5f;\" data-id=\"").concat(element.url, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                    "));
+            }
+          });
+        };
+
+        for (var r = 0; r < all_result.length; r++) {
+          _loop(r);
+        }
+      }
+    });
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/account/myAccount.js":
+/*!*******************************************!*\
+  !*** ./resources/js/account/myAccount.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ myAccount)
+/* harmony export */ });
+/* harmony import */ var _getEonet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getEonet */ "./resources/js/account/getEonet.js");
+/* harmony import */ var _getNews__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getNews */ "./resources/js/account/getNews.js");
+/* harmony import */ var _getGlobalGiving__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getGlobalGiving */ "./resources/js/account/getGlobalGiving.js");
+
+
+
+function myAccount() {
+  var pageContent = "\n    <div id= myaccNav>\n        <ul class=\"nav justify-content-center myaccNav\">\n        <li class=\"nav-item\">\n        <a class=\"nav-link acclink\" data-id=\"getEonet\" href=\"#\">EONET</a>\n        </li>\n        <li class=\"nav-item\">\n        <a class=\"nav-link acclink\" data-id=\"getNews\" href=\"#\">NEWS</a>\n        </li>\n        <li class=\"nav-item\">\n        <a class=\"nav-link acclink\" data-id=\"getGlobalGiving\" href=\"#\">GLOBAL GIVING</a>\n        </li>\n        </ul>\n    </div>\n    \n\n    \n    <div id=\"content-account\">\n    </div>\n    ";
+  $('#contentpage').html(pageContent);
+  $('.acclink').on('click', function (e) {
+    var id = localStorage.getItem('user_id');
+    var link = e.currentTarget.dataset.id; // console.log(link);
+
+    $.ajax({
+      type: "GET",
+      url: "/api/" + link + "/" + id,
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      },
+      dataType: 'json',
+      success: function success(response) {
+        switch (link) {
+          case "getEonet":
+            (0,_getEonet__WEBPACK_IMPORTED_MODULE_0__.default)(response);
+            break;
+
+          case "getNews":
+            (0,_getNews__WEBPACK_IMPORTED_MODULE_1__.default)(response);
+            break;
+
+          case "getGlobalGiving":
+            (0,_getGlobalGiving__WEBPACK_IMPORTED_MODULE_2__.default)(response);
+            break;
+
+          default:
+            break;
+        }
+      },
+      error: function error(_error) {
+        console.log('error');
+      }
+    });
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/eonet.js":
 /*!*******************************!*\
   !*** ./resources/js/eonet.js ***!
@@ -107,12 +317,75 @@ function eonet() {
         dataType: "json",
         success: function success(data) {
           e.preventDefault();
+          console.log('success');
         },
         error: function error(_error2) {
-          alert('Login first to bookmark news');
+          alert('Login first to bookmark event');
         }
       });
     });
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/globalgiving.js":
+/*!**************************************!*\
+  !*** ./resources/js/globalgiving.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ globalgiving)
+/* harmony export */ });
+function globalgiving() {
+  // console.log('globalgiving');
+  var pageContent = "\n    <div class=\"page-title\">\n        <h1>GLOBAL GIVING</h1>\n    </div>\n\n\n    \n    <div id=\"globalgiving-list\">\n    </div>\n    ";
+  $('#contentpage').html(pageContent);
+  $.ajax({
+    type: 'GET',
+    url: 'https://api.globalgiving.org/api/public/projectservice/themes/disaster/projects?api_key=0497935c-d3a3-456a-a526-7da636c07c85',
+    accepts: {
+      'accept': 'application/json'
+    },
+    dataType: 'json',
+    success: function success(response) {
+      var data = response.projects.project; // console.log(data);
+      // console.log('data');
+      // $('#globalgiving-list').html('');
+
+      data.forEach(function (element) {
+        // if(element.active == true){
+        var string = element.summary;
+        var length = 150;
+        var bodytrimmed = string.substring(0, length);
+        $('#globalgiving-list').append("\n                    <div class=\"card col\"  style=\"\">\n                    <img src=\"".concat(element.imageLink, "\" class=\"card-img-top\" alt=\"...\"> \n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\"><a href=\"#\" target=\"_blank\">").concat(element.title, "</a></h5>\n                        <h6 class=\"card-title2\"><a href=\"").concat(element.contactUrl, "\" target=\"_blank\">by ").concat(element.contactAddress, "</a></h6>\n                        <p class=\"card-text\">").concat(bodytrimmed, "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.projectLink, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">READ MORE</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark follow-global\" id=\"follow-global\" data-id=\"").concat(element.id, "\" tabindex=\"0\"></i></span>\n                    </div>\n                    </div>\n                    ")); // }
+      });
+      $('.follow-global').on('click', function (e) {
+        var globalgivingid = $(e.currentTarget).attr('data-id');
+        var userid = localStorage.getItem('user_id');
+        var datainput = "\n                        <form action=\"\" id=\"bookmarkNews\">\n                        <input type=\"text\" id=\"globalgivingid\" name=\"globalgivingid\" value=\"".concat(globalgivingid, "\">\n                        <input type=\"text\" id=\"user_id\" name=\"user_id\" value=\"").concat(userid, "\">\n                        </form>\n                        ");
+        var data = $(datainput).serialize();
+        console.log(globalgivingid);
+        $.ajax({
+          type: "Post",
+          url: "/api/GlobalGiving",
+          data: data,
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+          },
+          dataType: "json",
+          success: function success(data) {
+            e.preventDefault();
+            console.log('success');
+          },
+          error: function error(_error) {
+            alert('Login first to bookmark charity');
+          }
+        });
+      });
+    }
   });
 }
 
@@ -162,7 +435,7 @@ function news() {
           var string = element.description;
           var length = 150;
           var bodytrimmed = string.substring(0, length);
-          $('#news-list').append("\n                    <div class=\"card col\"  style=\"\">\n                    <img src=\"".concat(element.urlToImage, "\" class=\"card-img-top\" alt=\"...\"> \n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\"><a href=\"#\" target=\"_blank\">").concat(element.title, "</a></h5>\n                        <p class=\"card-text\">").concat(bodytrimmed, "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">READ MORE</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark bookmarknews\" id=\"bookmarknews\" data-id=\"").concat(element.url, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                    "));
+          $('#news-list').append("\n                    <div class=\"card col\"  style=\"\">\n                    <img src=\"".concat(element.urlToImage, "\" class=\"card-img-top\" alt=\"...\"> \n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\"><a href=\"#\" target=\"_blank\">").concat(element.title, "</a></h5>\n                        <h6 class=\"card-title2\"><a href=\"#\" target=\"_blank\">by ").concat(element.author, "</a></h6>\n                        <p class=\"card-text\">").concat(bodytrimmed, "</p>\n                    </div>\n                    <div class=\"card-footer\">\n                    <a href=\"").concat(element.url, "\" target=\"_blank\"><button type=\"button\" class=\"btn\" style=\"background-color:#3aafeb; color:#f3f7f9\">READ MORE</button></a>\n                    <span id=\"bookmark\"><i class=\"fas fa-bookmark bookmarknews\" id=\"bookmarknews\" data-id=\"").concat(element.url, "\" tabindex=\"0\"></i></span>\n                    </div>\n                </div>\n                    "));
         });
         $('.bookmarknews').on('click', function (e) {
           var newsid = $(e.currentTarget).attr('data-id');
@@ -180,6 +453,7 @@ function news() {
             dataType: "json",
             success: function success(data) {
               e.preventDefault();
+              console.log('success');
             },
             error: function error(_error) {
               alert('Login first to bookmark news');
@@ -260,6 +534,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AuthenticationModals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthenticationModals */ "./resources/js/AuthenticationModals.js");
 /* harmony import */ var _eonet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./eonet */ "./resources/js/eonet.js");
 /* harmony import */ var _news__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./news */ "./resources/js/news.js");
+/* harmony import */ var _globalgiving__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./globalgiving */ "./resources/js/globalgiving.js");
+/* harmony import */ var _account_myAccount__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./account/myAccount */ "./resources/js/account/myAccount.js");
+
+
 
 
 
@@ -297,10 +575,12 @@ $(document).ready(function () {
         break;
 
       case "globalgiving":
-        console.log('GLOBAL GIVING');
+        // console.log('GLOBAL GIVING');
+        (0,_globalgiving__WEBPACK_IMPORTED_MODULE_4__.default)();
         break;
 
       case "myacc":
+        (0,_account_myAccount__WEBPACK_IMPORTED_MODULE_5__.default)();
         break;
 
       case "home":

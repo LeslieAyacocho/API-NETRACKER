@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\EonetController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\GlobalGivingController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,6 +21,7 @@ use App\Http\Controllers\NewsController;
 
 Route::middleware(['api'])->group(function () {
     Route::get('/news/{id}', [APIController::class, 'getNews']);
+    Route::get('/giving', [APIController::class, 'getGiving']);
 });
 
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -33,5 +35,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::resource('Eonet', EonetController::class); 
     Route::resource('News', NewsController::class); 
+    Route::resource('GlobalGiving', GlobalGivingController::class); 
+    Route::get('/getEonet/{id}', [EonetController::class, 'getEonet']);
+    Route::get('/getNews/{id}', [NewsController::class, 'getNews']);
+    Route::get('/getGlobalGiving/{id}', [GlobalGivingController::class, 'getGlobalGiving']);
+    Route::get('/auth/{email}', [AuthController::class, 'getUserID']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 });

@@ -2,6 +2,8 @@ import home from './home'
 import authModal from './AuthenticationModals';
 import eonet from './eonet';
 import news from './news';
+import globalgiving from './globalgiving';
+import myAccount from './account/myAccount';
 $(document).ready(function(){
 
     
@@ -41,10 +43,13 @@ $('.link').on('click', (e) => {
             break;
 
         case "globalgiving":
-            console.log('GLOBAL GIVING');
+            // console.log('GLOBAL GIVING');
+            globalgiving();
+            
             break;
 
         case "myacc":
+            myAccount();
             break;
 
         case "home":

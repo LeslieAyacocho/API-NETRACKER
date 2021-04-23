@@ -169,6 +169,8 @@ nav li{
     height:200px;
 } 
 #news-list .card-text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight:600;
     color: #3aafeb;
 }
 #news-list .card {
@@ -190,12 +192,64 @@ nav li{
     text-align: center;
     font-size:1.6vw;
 }
+#news-list .card-title2 a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:600;
+    color:#f3f7f9b7;
+    text-decoration: none;
+    text-align: center;
+    font-size:1vw;
+}
 
 #category-drop{
     margin: 30px;
 }
 
 /* -----------END NEWS CARDS---------------- */
+/* -----------GLOBALGIVING CARDS---------------- */
+
+#globalgiving-list .card-img-top {
+    object-fit: cover;
+    width:400px;
+    height:200px;
+} 
+#globalgiving-list .card-text {
+    color: #3aafeb;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight:600;
+}
+#globalgiving-list .card {
+    background-color: #2c405c;
+    float: left;
+    width:400px;
+    height:500px;
+    margin:10px;
+} 
+
+#globalgiving-list .card-title{
+    text-align: left;
+}
+
+#globalgiving-list .card-title a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:800;
+    color:#f3f7f9;
+    text-decoration: none;
+    text-align: center;
+    font-size:1.6vw;
+}
+
+#globalgiving-list .card-title2 a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:600;
+    color:#f3f7f9b7;
+    text-decoration: none;
+    text-align: center;
+    font-size:1vw;
+}
+
+
+/* -----------END GLOBALGIVING CARDS---------------- */
 
 #bookmark{
     float: right;
@@ -207,3 +261,30 @@ i{
 span i:hover{
     color:#3aafeb;
 }
+
+.fa-trash i{
+    color: #c05f5f;
+}
+/* ---------------------ACCOUNT-------------------- */
+#myaccNav ul{
+    margin-top: 40px;
+    /* border: 1px solid #6930c3; */
+}
+#myaccNav li{
+    border: 2px solid #3aafeb ;
+    background-color: #2c405c ;
+}
+
+#myaccNav li:hover{
+    border: 2px solid #f3f7f9 ;
+    background-color: #3aafeb ;
+}
+
+#myaccNav a{
+    font-family: 'Source Sans Pro', sans-serif;;
+    font-weight: 600;
+    color: #f3f7f9 ;
+    font-size: 18px;
+}
+
+/* ---------------- END ACCOUNT----------------------- */

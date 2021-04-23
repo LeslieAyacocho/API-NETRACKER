@@ -9,6 +9,7 @@ class GlobalGiving extends Model
 {
     use HasFactory;
 
+    public $table = 'globalgivings';
     public $timestamps = false;
     protected $fillable = [ 'globalgivingid', 'user_id'];
 

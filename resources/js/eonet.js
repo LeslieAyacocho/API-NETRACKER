@@ -184,10 +184,10 @@ export default function eonet(){
                     dataType: "json",
                     success: function(data) {
                         e.preventDefault();
-            
+                        console.log('success');
                     },
                     error: function(error) {
-                        alert('Login first to bookmark news')
+                        alert('Login first to bookmark event')
                     }
                 });
     
