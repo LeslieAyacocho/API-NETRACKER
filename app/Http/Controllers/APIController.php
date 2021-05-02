@@ -14,6 +14,14 @@ class APIController extends Controller
         $data = $response->json();
         return $data;
     }
+
+    public function getNewsEonet($id)
+    {
+
+        $response=Http::get("https://newsapi.org/v2/everything?q=$id&pageSize=10&apiKey=be318bff18ad45cba771cdb1de38ba7b");
+        $data = $response->json();
+        return $data;
+    }
     // public function getNews($id)
     // {
 

@@ -4,6 +4,7 @@ import eonet from './eonet';
 import news from './news';
 import globalgiving from './globalgiving';
 import myAccount from './account/myAccount';
+import database from './database';
 $(document).ready(function(){
 
     
@@ -33,17 +34,14 @@ $('.link').on('click', (e) => {
 
     switch (link) {
         case "eonet":
-            // console.log('EONET');
             eonet();
             break;
 
         case "news":
-            // console.log('NEWS');
             news();
             break;
 
         case "globalgiving":
-            // console.log('GLOBAL GIVING');
             globalgiving();
             
             break;
@@ -57,7 +55,7 @@ $('.link').on('click', (e) => {
             break;
 
         case "database":
-            console.log('database');
+            database();
             break;
 
         case "logout":
@@ -103,7 +101,6 @@ submitHandler: function(form,e) {
             dataType: "json",
             success: function(data) {
                 
-                // console.log(data);
                 $('#registerModal').each(function () {
                 $(this).modal('hide');
                 });

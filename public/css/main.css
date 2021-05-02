@@ -17,6 +17,9 @@ nav {
 nav li{
     margin: 0 10px 0 10px;
 }
+#searchBar{
+    margin:10px;
+}
 
 .nodata{
     text-align: center;
@@ -201,8 +204,9 @@ nav li{
     font-size:1vw;
 }
 
-#category-drop{
-    margin: 30px;
+.dropdown{
+ margin:0;
+
 }
 
 /* -----------END NEWS CARDS---------------- */
@@ -288,3 +292,136 @@ span i:hover{
 }
 
 /* ---------------- END ACCOUNT----------------------- */
+/* ---------------SHOW DETAILS ----------------------- */
+#showDetails .modal-header{
+    background-color: #2C405C;
+    
+}
+#showDetails .modal-header a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:800;
+    color:#f3f7f9 ;
+    text-decoration: none;
+    text-align: center;
+    font-size:1.4vw;
+    
+}
+/* .modal-content{
+background-color: #2c405c;
+} */
+
+/* -----------EONET CARDS---------------- */
+#modal-event .card-title{
+    text-align: center;
+    height: 50px;
+    padding: 10px;
+}
+
+#modal-event   .card-body{
+    padding: 30px;
+    font-size: 1.2vw;
+}
+#modal-event   .card-body p{
+    color: #cedbe2;
+    margin: 0;
+}
+#modal-event  .card-body label{
+    color: #3aafeb;
+}
+#modal-event   .card {
+    background-color: #2c405c;
+    float: left;
+    width:410px;
+    height:300px;
+    margin:10px;
+    
+}
+
+
+/* -----------SHOW NEWS CARDS---------------- */
+
+#eonet-news .card-img-top {
+    object-fit: cover;
+    width:400px;
+    height:200px;
+} 
+#eonet-news .card-text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight:600;
+    color: #3aafeb;
+}
+#eonet-news .card {
+    background-color: #2c405c;
+    float: left;
+    /* width:400px; */
+    /* height:500px; */
+    margin:10px;
+    border: 2px solid #3aafeb;
+} 
+
+#eonet-news .card-title{
+    text-align: left;
+}
+#eonet-news .card-title a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:800;
+    color:#f3f7f9;
+    text-decoration: none;
+    text-align: center;
+    font-size:1.6vw;
+}
+#eonet-news .card-title2 a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:600;
+    color:#f3f7f9b7;
+    text-decoration: none;
+    text-align: center;
+    font-size:1vw;
+}
+/* -----------END SHOW NEWS CARDS---------------- */
+/* -----------GLOBALGIVING CARDS---------------- */
+
+/* #eonet-charity .card-img-top {
+    object-fit: cover;
+    width:400px;
+    height:200px;
+}  */
+#eonet-charity .card-text {
+    color: #3aafeb;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight:600;
+}
+#eonet-charity .card {
+    background-color: #2c405c;
+    /* float: left; */
+    /* width:400px;
+    height:500px; */
+    margin:10px;
+    border: 2px solid #3aafeb;
+} 
+
+#eonet-charity .card-title{
+    text-align: left;
+}
+
+#eonet-charity .card-title a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:800;
+    color:#f3f7f9;
+    text-decoration: none;
+    text-align: center;
+    font-size:1.6vw;
+}
+
+#eonet-charity .card-title2 a{
+    font-family: 'Exo 2', sans-serif;
+    font-weight:600;
+    color:#f3f7f9b7;
+    text-decoration: none;
+    text-align: center;
+    font-size:1vw;
+}
+
+
+/* -----------END GLOBALGIVING CARDS---------------- */
+/* ---------------END SHOW DETAILS ----------------------- */

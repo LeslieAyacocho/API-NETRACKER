@@ -43,7 +43,7 @@ $('.dropdown-item').on('click', (e) => {
             url: 'api/news/' + id,
             success: function (response) {
                 let data = response.articles
-                    console.log(data);
+                    // console.log(data);
                     $('#news-list').html('NO DATA');
 
                     for(let r=0; r<all_result.length; r++){
@@ -65,15 +65,43 @@ $('.dropdown-item').on('click', (e) => {
                     </div>
                     <div class="card-footer">
                     <a href="${element.url}" target="_blank"><button type="button" class="btn" style="background-color:#3aafeb; color:#f3f7f9">READ MORE</button></a>
-                    <span id="bookmark"><i class="fas fa-trash bookmarknews" id="bookmarknews" style="color: #c05f5f;" data-id="${element.url}" tabindex="0"></i></span>
+                    <span id="bookmark"><i class="fas fa-trash delete-news" id="delete-news" style="color: #c05f5f;" data-id="${all_result[r].id}" tabindex="0"></i></span>
                     </div>
                 </div>
                     `)
                             }
                 });
             }
-            }
+            $('.delete-news').on('click', (e) => {
+                var id = $(e.currentTarget).attr('data-id');
+    
+                console.log(id);
+                console.log('delete');
+    
+                $.ajax({
+                                
+                    type: "DELETE",
+                    url: "/api/News/" + id,
+                    data: data,
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        e.preventDefault();
+                        console.log('success');
+                        // showEonet();
+                    },
+                    error: function(error) {
+                        alert('error')
+                    }
+                });
+            });    
+        }
         });
+
+        
+    
 
     });
 

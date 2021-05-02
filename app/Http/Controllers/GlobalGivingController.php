@@ -87,8 +87,9 @@ class GlobalGivingController extends Controller
      * @param  \App\Models\GlobalGiving  $globalGiving
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GlobalGiving $globalGiving)
+    public function destroy($id)
     {
-        //
+        $globalGiving = GlobalGiving::find($id)->delete();
+        return response()->json($globalGiving);
     }
 }

@@ -4,8 +4,8 @@ export default function getGlobalGiving(response){
     <div class="page-title">
         <h1>GLOBAL GIVING</h1>
     </div>
-    <div id="globalgiving-list">
-        
+    <div id="globalgiving-list" >
+        <h1>No bookmarked projects</h1>
     </div>
     `
 
@@ -31,6 +31,7 @@ export default function getGlobalGiving(response){
             
                 let data = response.projects.project;
 
+                $('#globalgiving-list').html(' ');
                 for(let r=0; r<all_result.length; r++){
                     data.forEach(element => {
                         if (all_result[r].globalgivingid== element.id){
@@ -48,7 +49,7 @@ export default function getGlobalGiving(response){
                         </div>
                         <div class="card-footer">
                         <a href="${element.projectLink}" target="_blank"><button type="button" class="btn" style="background-color:#3aafeb; color:#f3f7f9">READ MORE</button></a>
-                        <span id="bookmark"><i class="fas fa-trash follow-global" id="follow-global" style="color: #c05f5f;" data-id="${element.id}" tabindex="0"></i></span>
+                        <span id="bookmark"><i class="fas fa-trash delete-global" id="delete-global" style="color: #c05f5f;" data-id="${all_result[r].id}" tabindex="0"></i></span>
                         </div>
                         </div>
                         `)
@@ -57,6 +58,31 @@ export default function getGlobalGiving(response){
                 });
                 }
 
+                $('.delete-global').on('click', (e) => {
+                    var id = $(e.currentTarget).attr('data-id');
+        
+                    console.log(id);
+                    console.log('delete');
+        
+                    $.ajax({
+                                    
+                        type: "DELETE",
+                        url: "/api/GlobalGiving/" + id,
+                        data: data,
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            e.preventDefault();
+                            console.log('success');
+                            // showEonet();
+                        },
+                        error: function(error) {
+                            alert('error')
+                        }
+                    });
+                });   
             },
             error: function(error) {
                 console.log('error');

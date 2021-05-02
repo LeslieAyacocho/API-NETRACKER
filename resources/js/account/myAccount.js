@@ -32,7 +32,7 @@ export default function myAccount(){
         // console.log(link);
         
 
-
+    
         $.ajax({
             type: "GET",
             url: "/api/" + link +"/"+ id,

@@ -86,8 +86,9 @@ class EonetController extends Controller
      * @param  \App\Models\Eonet  $eonet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Eonet $eonet)
+    public function destroy($id)
     {
-        //
+        $eonet = Eonet::find($id)->delete();
+        return response()->json($eonet);
     }
 }
